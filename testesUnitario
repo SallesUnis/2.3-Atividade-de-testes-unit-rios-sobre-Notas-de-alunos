@@ -1,0 +1,53 @@
+package personal.atividadetestecalculadora;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class ControlaNotasTest {
+
+    @Test
+    public void testAdicionarNota() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.adicionarNota("João", 8.5);
+        assertEquals(1, controlaNotas.quantidadeDeNotas());
+    }
+
+    @Test
+    public void testAtualizarNota() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.adicionarNota("João", 8.5);
+        controlaNotas.atualizarNota("João", 9.0);
+        assertEquals(1, controlaNotas.quantidadeDeNotas());
+        assertEquals(9.0, controlaNotas.obterNota("João"), 0.001);
+    }
+
+    @Test
+    public void testCalcularNota() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.adicionarNota("João", 8.5);
+        controlaNotas.adicionarNota("Maria", 7.0);
+        assertEquals(7.75, controlaNotas.calcularNotaMedia(), 0.001);
+    }
+
+    @Test
+    public void testObterNotaMaisAlta() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.adicionarNota("João", 8.5);
+        controlaNotas.adicionarNota("Maria", 7.0);
+        assertEquals(8.5, controlaNotas.obterNotaMaisAlta(), 0.001);
+    }
+
+    @Test
+    public void testObterNotaMaisBaixa() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.adicionarNota("João", 8.5);
+        controlaNotas.adicionarNota("Maria", 7.0);
+        assertEquals(7.0, controlaNotas.obterNotaMaisBaixa(), 0.001);
+    }
+
+    @Test(expected = AlunoNaoEncontradoException.class)
+    public void testAlunoNaoEncontrado() {
+        ControlaNotas controlaNotas = new ControlaNotas();
+        controlaNotas.obterNota("João");
+    }
+}
